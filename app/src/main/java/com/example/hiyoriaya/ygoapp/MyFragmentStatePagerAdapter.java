@@ -18,9 +18,9 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new CalcFragment();
             case 1:
-                return new RecordFragment();
+                return new EnemyLists();
             case 2:
-                return new ListFragment();
+                return new RecordFragment();
         }
         return null;
     }
@@ -31,7 +31,15 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public CharSequence getPageTitle(int position){
-        return "Page"+position;
+    public CharSequence getPageTitle(int position) {
+        switch (position){
+            case 0:
+                return "デュエルカウンター";
+            case 1:
+                return "デュエルレコード";
+            case 2:
+                return "デュエリスト詳細";
+        }
+        return null;
     }
 }
