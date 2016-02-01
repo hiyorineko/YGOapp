@@ -5,8 +5,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:baselineAligned="false"
-        android:weightSum="1">
+        android:baselineAligned="false">
 
         <fragment
             android:layout_width="0dp"
@@ -22,6 +21,4 @@
             android:name="com.example.hiyoriaya.ygoapp.ContentFragment"
             android:id="@+id/frgC"
             android:layout_weight="1" />
-
-
     </LinearLayout>
