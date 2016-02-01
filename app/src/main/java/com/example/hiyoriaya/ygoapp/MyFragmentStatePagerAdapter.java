@@ -22,6 +22,7 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
             case 2:
                 return new ListFragment();
         }
+        return null;
     }
 
     @Override
