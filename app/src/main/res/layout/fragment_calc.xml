@@ -1,20 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:id="@+id/rl">
 
-    <EditText
-        android:id="@+id/et1"
-        android:layout_width="200dp"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="YOU"
+        android:id="@+id/textView3"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="64dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="30sp"
-        android:text="hello"/>
+        android:text="8000"
+        android:id="@+id/lpy"
+        android:layout_marginTop="112dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginStart="38dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ENEMY"
+        android:id="@+id/textView4"
+        android:layout_marginRight="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30sp"
+        android:text="8000"
+        android:id="@+id/lpe"
+        android:layout_alignTop="@+id/lpy"
+        android:layout_alignRight="@+id/textView4"
+        android:layout_alignEnd="@+id/textView4" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="回復モード"
+        android:id="@+id/modec"
+        android:layout_centerHorizontal="true" />
+
     <Button
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ok"
-        android:textSize="30sp"
-        android:id="@+id/okButton" />
-</LinearLayout>
+        android:text="リセット"
+        android:id="@+id/reset"
+        android:layout_above="@+id/linearLayout"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="1/2"
+            android:id="@+id/yharf"
+            android:layout_above="@+id/y1000"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="1000"
+            android:id="@+id/y1000"
+            android:layout_centerVertical="true"
+            android:layout_alignLeft="@+id/yharf"
+            android:layout_alignStart="@+id/yharf"
+            android:layout_toEndOf="@+id/yharf" />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="500"
+            android:id="@+id/y500"
+            android:layout_below="@+id/y1000"
+            android:layout_alignLeft="@+id/y1000"
+            android:layout_alignStart="@+id/y1000"
+            android:layout_toEndOf="@+id/yharf" />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="100"
+            android:id="@+id/y100"
+            android:layout_below="@+id/y500"
+            android:layout_alignLeft="@+id/y500"
+            android:layout_alignStart="@+id/y500"
+            android:layout_toEndOf="@+id/yharf" />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="50"
+            android:id="@+id/y50"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/y100"
+            android:layout_alignStart="@+id/y100"
+            android:layout_toEndOf="@+id/yharf" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="1/2"
+            android:id="@+id/eharf"
+            android:layout_alignTop="@+id/yharf"
+            android:layout_toRightOf="@+id/yharf"
+            android:layout_toEndOf="@+id/yharf" />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="1000"
+            android:id="@+id/e1000"
+            android:layout_alignTop="@+id/y1000"
+            android:layout_toRightOf="@+id/yharf"
+            android:layout_toEndOf="@+id/yharf" />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="500"
+            android:id="@+id/e500"
+            android:layout_alignTop="@+id/y500"
+            android:layout_alignLeft="@+id/e1000"
+            android:layout_alignStart="@+id/e1000"
+            android:layout_toEndOf="@+id/yharf" />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="100"
+            android:id="@+id/e100"
+            android:layout_alignTop="@+id/y100"
+            android:layout_alignLeft="@+id/e500"
+            android:layout_alignStart="@+id/e500"
+            android:layout_toEndOf="@+id/yharf" />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="50"
+            android:id="@+id/e50"
+            android:layout_below="@+id/textView4"
+            android:layout_toRightOf="@+id/relativeLayout"
+            android:layout_toEndOf="@+id/relativeLayout" />
+    </LinearLayout>
+
+</RelativeLayout>

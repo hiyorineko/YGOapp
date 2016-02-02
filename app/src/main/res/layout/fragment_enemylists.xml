@@ -3,10 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="デュエリスト追加"
+        android:id="@+id/addduelist" />
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/enemyLists" />
+        android:layout_height="190dp"
+        android:id="@+id/enemyLists"
+        android:layout_weight="1.05" />
+
 </LinearLayout>

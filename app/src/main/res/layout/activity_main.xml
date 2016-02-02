@@ -7,7 +7,7 @@
     <android.support.v4.view.PagerTitleStrip
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
+        android:layout_gravity="bottom"
         android:background="#CCCCCC"
         android:textColor="#000000"
         android:paddingTop="10dp"
