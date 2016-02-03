@@ -1,21 +1,17 @@
 package com.example.hiyoriaya.ygoapp;
 
-import android.app.Activity;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -36,12 +32,23 @@ public class AddDuelistDialog extends DialogFragment{
                 EditText et = (EditText) content.findViewById(R.id.inputduelistname);
                 String input = et.getText().toString();
                 try {
-                    OutputStream out = MainActivity.context.openFileOutput("save.txt", MainActivity.context.MODE_PRIVATE);
-                    PrintWriter writer = new PrintWriter(new OutputStreamWriter(out,"UTF-8"));
-                    writer.append(input);
+                    OutputStream out = MainActivity.context.openFileOutput("keys.txt", MainActivity.context.MODE_APPEND);
+                    PrintWriter writer = new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
+                    writer.append(input + "\n");
+                    MainActivity.keys.add(input);
                     writer.close();
                 } catch (FileNotFoundException e) {
+                    try {
+                        OutputStream out = MainActivity.context.openFileOutput("keys.txt", MainActivity.context.MODE_PRIVATE);
+                        PrintWriter writer = new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
+                        writer.append(input + "\n");
+                        MainActivity.keys.add(input);
+                        writer.close();
+                    } catch (FileNotFoundException e1) {
 
+                    } catch (UnsupportedEncodingException e1){
+
+                    }
                 } catch (UnsupportedEncodingException e) {
 
                 }

@@ -3,7 +3,6 @@ package com.example.hiyoriaya.ygoapp;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.ListFragment;
 
 /**
  * Created by hiyorineko on 2016/02/01.

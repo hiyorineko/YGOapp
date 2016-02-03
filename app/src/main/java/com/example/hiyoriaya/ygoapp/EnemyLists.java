@@ -12,22 +12,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import java.util.List;
 
 /**
  * Created by hiyorineko on 2016/02/01.
  */
-public class EnemyLists extends Fragment implements View.OnClickListener{
+public class EnemyLists extends Fragment implements View.OnClickListener,AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener{
     private static String[] lists;
     static ListView enemyList;
     Button addDuelist;
-    List<String> enemynames;/** id,Name.duelkaisuu */
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_enemylists,container,false);
-        findView(v,container);
-        loaddata();
+        findView(v, container);
         return v;
     }
 
@@ -37,24 +34,32 @@ public class EnemyLists extends Fragment implements View.OnClickListener{
     }
 
     public void findView(View v, final ViewGroup container){
-        lists = new String[3];
-        lists[0] = "a";
-        lists[1] = "b";
-        lists[2] = "c";
         enemyList = (ListView)v.findViewById(R.id.enemyLists);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(v.getContext(),android.R.layout.simple_expandable_list_item_1,lists);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(v.getContext(),android.R.layout.simple_expandable_list_item_1,MainActivity.keys);
         enemyList.setAdapter(arrayAdapter);
 
-        enemyList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MainActivity.openDueList(position);
-            }
-        });
-
+        enemyList.setOnItemClickListener(this);
+        enemyList.setOnItemLongClickListener(this);
 
         addDuelist = (Button)v.findViewById(R.id.addduelist);
         addDuelist.setOnClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView parent, View view, int position, long id) {
+        MainActivity.openDueList(position);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        //リストロングタップ時の挙動
+        //メニューを出して削除をしたい
+        DialogFragment newFragment = new RemoveDuelistDialog();
+        MainActivity.select = position;
+        newFragment.show(getFragmentManager(),"");
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_expandable_list_item_1,MainActivity.keys);
+        enemyList.setAdapter(arrayAdapter);
+        return false;
     }
 
     @Override
@@ -62,10 +67,7 @@ public class EnemyLists extends Fragment implements View.OnClickListener{
         //EnemyListを追加するFragment or 処理
         DialogFragment newFragment = new AddDuelistDialog();
         newFragment.show(getFragmentManager(),"");
-
-    }
-
-    public void loaddata(){
-        //保存されている敵データを読み込む。
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(v.getContext(),android.R.layout.simple_expandable_list_item_1,MainActivity.keys);
+        enemyList.setAdapter(arrayAdapter);
     }
 }
