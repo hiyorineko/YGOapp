@@ -1,5 +1,6 @@
 package com.example.hiyoriaya.ygoapp;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -32,14 +33,7 @@ public class AddDuelistDialog extends DialogFragment{
             public void onClick(DialogInterface dialog, int id) {
                 EditText et = (EditText) content.findViewById(R.id.inputduelistname);
                 String input = et.getText().toString();
-                try {
-                    OutputStream out = openFileOutput("enemies.txt", MODE_APPEND);
-                    PrintWriter writer = new PrintWriter(new OutputStreamWriter(out,"UTF-8"));
-                    writer.append(input);
-                    writer.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
             }
         });
         return builder.create();

@@ -3,13 +3,12 @@ package com.example.hiyoriaya.ygoapp;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.ListFragment;
 
 /**
- * Created by hiyorineko on 2016/02/01.
+ * Created by hiyorineko on 2016/02/03.
  */
-public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
-    public MyFragmentStatePagerAdapter(FragmentManager fm){
+public class ListFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
+    public ListFragmentStatePagerAdapter(FragmentManager fm){
         super(fm);
     }
 
@@ -17,18 +16,16 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int i){
         switch(i){
             case 0:
-                return new ToolsFragment();
+                return new EnemyLists();
             case 1:
-                return new CalcFragment();
-            case 2:
-                return new ListFragment();
+                return new RecordFragment();
         }
         return null;
     }
 
     @Override
     public int getCount(){
-        return 3;
+        return 2;
     }
 
     @Override
@@ -38,8 +35,6 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
                 return "Tools";
             case 1:
                 return "Counter";
-            case 2:
-                return "Duelists";
         }
         return null;
     }
