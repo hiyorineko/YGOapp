@@ -2,7 +2,6 @@ package com.example.hiyoriaya.ygoapp;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 
 /**
  * Created by hiyorineko on 2016/02/02.

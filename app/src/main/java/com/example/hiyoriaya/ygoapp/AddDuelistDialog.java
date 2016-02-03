@@ -14,10 +14,12 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by hiyorineko on 2016/02/02.
@@ -33,6 +35,16 @@ public class AddDuelistDialog extends DialogFragment{
             public void onClick(DialogInterface dialog, int id) {
                 EditText et = (EditText) content.findViewById(R.id.inputduelistname);
                 String input = et.getText().toString();
+                try {
+                    OutputStream out = MainActivity.context.openFileOutput("save.txt", MainActivity.context.MODE_PRIVATE);
+                    PrintWriter writer = new PrintWriter(new OutputStreamWriter(out,"UTF-8"));
+                    writer.append(input);
+                    writer.close();
+                } catch (FileNotFoundException e) {
+
+                } catch (UnsupportedEncodingException e) {
+
+                }
 
             }
         });

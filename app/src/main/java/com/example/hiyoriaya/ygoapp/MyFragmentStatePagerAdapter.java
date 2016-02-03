@@ -21,7 +21,7 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new CalcFragment();
             case 2:
-                return new ListFragment();
+                return new EnemyLists();
         }
         return null;
     }
