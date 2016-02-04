@@ -7,11 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 
 /**
  * Created by hiyorineko on 2016/02/01.
+ * 遊戯王のデュエルカウンターです。
+ * 数値の書いてあるボタンを押すとライフ表示から引かれます。
+ * 回復モードを選択すると数値を押すとライフ表示に足されます。
+ * 1/2はどちらのモードでも現行のライフの数字を半分にします。
  */
 public class CalcFragment extends Fragment implements View.OnClickListener{
     TextView lpy;

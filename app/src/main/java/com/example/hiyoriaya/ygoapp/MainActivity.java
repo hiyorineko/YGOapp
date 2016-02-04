@@ -13,6 +13,16 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 基底クラスです。
+ * このActivity上で各Fragmentを遷移させます。
+ * 状態保存用の変数をstaticで持たせてあります。
+ *
+ * メソッド
+ * loadData:ローカルデータのkeys.txtを読み込んでListのkeysに格納します。
+ * openDuelist:ListViewから選択されたインデックスを受け取ってRecordActivityに遷移します。
+ */
+
 public class MainActivity extends FragmentActivity{
 
     ViewPager viewPager;
@@ -39,7 +49,6 @@ public class MainActivity extends FragmentActivity{
     }
 
     public static void loadData(){
-        keys.clear();
         try{
             InputStream in = context.openFileInput("keys.txt");
             BufferedReader reader =

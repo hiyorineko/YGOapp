@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
@@ -18,6 +18,12 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * Created by hiyorineko on 2016/02/03.
+ *
+ * ListView長押しタップで呼び出されるDialogです。
+ * keys.txtを削除→基底クラスのkeysを元に再構築します。
+ * 再構築の際に選択されているインデックスを飛ばします。
+ * 最後に基底クラスのkeysから選択されたインデックスをremoveします。
+ * 処理終了時にListViewのAdapterに変更通知をしています。
  */
 public class RemoveDuelistDialog extends DialogFragment {
 
@@ -26,16 +32,19 @@ public class RemoveDuelistDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View content = inflater.inflate(R.layout.removedialog_setting,null);
+        TextView selectDuelist = (TextView)content.findViewById(R.id.selectduelist);
+        selectDuelist.setText(MainActivity.keys.get(MainActivity.select));
         builder.setView(content);
         builder.setMessage("デュエリストデータの削除").setNegativeButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                for(int i=0;i<MainActivity.keys.size();i++){
-                    if(i!=MainActivity.select){
+                MainActivity.context.deleteFile("keys.txt");
+                for (int i = 0; i < MainActivity.keys.size(); i++) {
+                    if (i != MainActivity.select) {
                         try {
                             OutputStream out;
-                            if(i==0) {
+                            if (i == 0) {
                                 out = MainActivity.context.openFileOutput("keys.txt", MainActivity.context.MODE_PRIVATE);
-                            }else{
+                            } else {
                                 out = MainActivity.context.openFileOutput("keys.txt", MainActivity.context.MODE_APPEND);
                             }
                             PrintWriter writer = new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
@@ -43,12 +52,13 @@ public class RemoveDuelistDialog extends DialogFragment {
                             writer.close();
                         } catch (FileNotFoundException e) {
 
-                        }catch (UnsupportedEncodingException e){
+                        } catch (UnsupportedEncodingException e) {
 
                         }
                     }
                 }
-                MainActivity.loadData();
+                MainActivity.keys.remove(MainActivity.select);
+                EnemyLists.arrayAdapter.notifyDataSetChanged();
                 RecordActivity.removeDatas(MainActivity.select);
             }
         });

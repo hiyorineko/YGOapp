@@ -19,6 +19,11 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * Created by hiyorineko on 2016/02/02.
+ *
+ * デュエリスト追加ボタンから呼び出されるDialogです。
+ * EditTextに入力された名前をkeys.txtに追加します。
+ * その後に基底クラスのkeysにもaddします。
+ * 処理時にListViewのAdapterに変更通知をしています。
  */
 public class AddDuelistDialog extends DialogFragment{
     @Override
@@ -46,13 +51,13 @@ public class AddDuelistDialog extends DialogFragment{
                         writer.close();
                     } catch (FileNotFoundException e1) {
 
-                    } catch (UnsupportedEncodingException e1){
+                    } catch (UnsupportedEncodingException e1) {
 
                     }
                 } catch (UnsupportedEncodingException e) {
 
                 }
-
+                EnemyLists.arrayAdapter.notifyDataSetChanged();
             }
         });
         return builder.create();

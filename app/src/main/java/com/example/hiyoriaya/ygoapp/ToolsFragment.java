@@ -1,35 +1,25 @@
 package com.example.hiyoriaya.ygoapp;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.Random;
-import java.util.Timer;
 
 /**
  * Created by hiyorineko on 2016/02/02.
+ * TCGに使いそうなツールのコインとサイコロを表示します。
+ * それぞれタップ→ランダムにアニメーションが呼び出される
+ * という仕組みです。
  */
 public class ToolsFragment extends Fragment implements View.OnTouchListener{
-    Bitmap cy1;
-    Bitmap cy2;
-    Bitmap cy3;
-    Bitmap cy4;
-    Bitmap cy5;
-    Bitmap cy6;
-    Bitmap omote;
-    Bitmap ura;
-    Bitmap middle;
+
     ImageView coin;
     ImageView cycolo;
 

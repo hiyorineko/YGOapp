@@ -6,6 +6,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 /**
  * Created by hiyorineko on 2016/02/01.
+ * ViewPagerの継承クラスです。
+ * MainActivity上で呼ばれます。
+ * ここを編集することでFragmentを増やすことができます。
  */
 public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
     public MyFragmentStatePagerAdapter(FragmentManager fm){

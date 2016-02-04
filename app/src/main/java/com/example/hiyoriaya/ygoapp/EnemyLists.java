@@ -15,11 +15,19 @@ import android.widget.ListView;
 
 /**
  * Created by hiyorineko on 2016/02/01.
+ * 登録されたデュエリストをListViewで表示しています。
+ * デュエリスト追加ボタンを押すとAddDuelistDialogが呼ばれます。
+ * ListViewの項目ロングタップでRemoveDuelistDialogが呼ばれます。
+ * それぞれのDialogから変更通知をするためにListViewのArrayAdapterをstaticにしてあります。
+ *
+ * ListViewをタップするとMainActivityからopenDuelistメソッドが呼び出され
+ * Activityの画面遷移が行われます。
+ *
  */
 public class EnemyLists extends Fragment implements View.OnClickListener,AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener{
-    private static String[] lists;
-    static ListView enemyList;
+    private ListView enemyList;
     Button addDuelist;
+    static ArrayAdapter<String> arrayAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState){
@@ -35,7 +43,7 @@ public class EnemyLists extends Fragment implements View.OnClickListener,Adapter
 
     public void findView(View v, final ViewGroup container){
         enemyList = (ListView)v.findViewById(R.id.enemyLists);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(v.getContext(),android.R.layout.simple_expandable_list_item_1,MainActivity.keys);
+        arrayAdapter = new ArrayAdapter<String>(v.getContext(),android.R.layout.simple_expandable_list_item_1,MainActivity.keys);
         enemyList.setAdapter(arrayAdapter);
 
         enemyList.setOnItemClickListener(this);
@@ -56,10 +64,9 @@ public class EnemyLists extends Fragment implements View.OnClickListener,Adapter
         //メニューを出して削除をしたい
         DialogFragment newFragment = new RemoveDuelistDialog();
         MainActivity.select = position;
-        newFragment.show(getFragmentManager(),"");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_expandable_list_item_1,MainActivity.keys);
-        enemyList.setAdapter(arrayAdapter);
-        return false;
+        newFragment.show(getFragmentManager(), "");
+        arrayAdapter.notifyDataSetChanged();
+        return true;
     }
 
     @Override
@@ -67,7 +74,6 @@ public class EnemyLists extends Fragment implements View.OnClickListener,Adapter
         //EnemyListを追加するFragment or 処理
         DialogFragment newFragment = new AddDuelistDialog();
         newFragment.show(getFragmentManager(),"");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(v.getContext(),android.R.layout.simple_expandable_list_item_1,MainActivity.keys);
-        enemyList.setAdapter(arrayAdapter);
+        arrayAdapter.notifyDataSetChanged();
     }
 }
