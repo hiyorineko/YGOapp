@@ -19,10 +19,12 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int i){
         switch(i){
             case 0:
-                return new ToolsFragment();
+                return new ProfileFragment();
             case 1:
-                return new CalcFragment();
+                return new ToolsFragment();
             case 2:
+                return new CalcFragment();
+            case 3:
                 return new EnemyLists();
         }
         return null;
@@ -30,17 +32,19 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount(){
-        return 3;
+        return 4;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Tools";
+                return "Profiles";
             case 1:
-                return "Counter";
+                return "Tools";
             case 2:
+                return "Counter";
+            case 3:
                 return "Duelists";
         }
         return null;

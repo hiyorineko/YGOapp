@@ -40,7 +40,7 @@ public class MainActivity extends FragmentActivity{
         viewPager = (ViewPager)findViewById(R.id.pager);
         viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(new MyFragmentStatePagerAdapter(getSupportFragmentManager()));
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(2);
     }
 
     public static void openDueList(int idx){
