@@ -1,10 +1,13 @@
 package com.example.hiyoriaya.ygoapp;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import java.io.BufferedReader;
@@ -25,7 +28,7 @@ import java.util.List;
  * 設定したプロフィールは赤外線かNFCとかで送信できるようにしたい
  * (AndroidだしNFCかな？)
  */
-public class ProfileFragment extends Fragment{
+public class ProfileFragment extends Fragment implements View.OnKeyListener{
 
     List<String> profile;
     View v;
@@ -33,6 +36,7 @@ public class ProfileFragment extends Fragment{
     EditText userthemes;
     EditText favorites;
     EditText appeal;
+    InputMethodManager inputMethodManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState){
@@ -56,10 +60,14 @@ public class ProfileFragment extends Fragment{
     public void findViews(){
         profile = new ArrayList<String>();
         username = (EditText)v.findViewById(R.id.username);
+        username.setOnKeyListener(this);
         userthemes = (EditText)v.findViewById(R.id.userthemes);
+        userthemes.setOnKeyListener(this);
         favorites = (EditText)v.findViewById(R.id.favorite);
-        appeal = (EditText)v.findViewById(R.id.favorite);
-
+        favorites.setOnKeyListener(this);
+        appeal = (EditText)v.findViewById(R.id.appeal);
+        appeal.setOnKeyListener(this);
+        inputMethodManager =  (InputMethodManager)MainActivity.context.getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     public void loadProfile(){
@@ -109,5 +117,14 @@ public class ProfileFragment extends Fragment{
         } catch (UnsupportedEncodingException e) {
 
         }
+    }
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode==KeyEvent.KEYCODE_ENTER)){
+            inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+            return true;
+        }
+        return false;
     }
 }

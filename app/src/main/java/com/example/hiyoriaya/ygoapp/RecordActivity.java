@@ -2,16 +2,16 @@ package com.example.hiyoriaya.ygoapp;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,35 +20,56 @@ import java.util.List;
  * duelistデータの編集クラスも兼ねる
  * removeDatas・・引数の主キーを削除→詰める
  */
-public class RecordActivity extends Activity{
+public class RecordActivity extends Activity implements RadioGroup.OnCheckedChangeListener{
 
+    static int currentmenuidx;
     TextView dname;
     TextView duelresults;
-    ListView dthemes;
+    RadioGroup dthemes;
     List<String> themes;
     String[][] loaddatas; //loaddataで読み込んだtheme名,勝ち数,負け数が入ってる
+    LinearLayout tresults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
-        findViews();
-        loadThemes();
     }
 
     public void findViews(){
+        currentmenuidx = -1;//初期値
         themes = new ArrayList<String>();
+        themes.add("スタンダード");
+        themes.add("融合");
+        themes.add("儀式");
+        themes.add("スタンダード");
+        themes.add("融合");
+        themes.add("儀式");
         dname=(TextView)findViewById(R.id.dname);
         dname.setText(MainActivity.keys.get(MainActivity.select));
         duelresults = (TextView)findViewById(R.id.duelresults);
         duelresults.setText("0戦0勝0敗 勝率0%");
-        dthemes = (ListView)findViewById(R.id.dthemes);
-        themeSet();
+        dthemes = (RadioGroup)findViewById(R.id.dthemes);
+        tresults = (LinearLayout)findViewById(R.id.tresults);
     }
 
     public void themeSet(){
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_expandable_list_item_1,themes);
-        dthemes.setAdapter(arrayAdapter);
+        for(int i=0;i<themes.size();i++){
+            RadioButton radioButton = new RadioButton(this);
+            radioButton.setText(themes.get(i));
+            dthemes.addView(radioButton, i);
+            TextView textView = new TextView(this);
+            textView.setPadding(16,16,16,16);
+            textView.setText("―　　0勝　0敗");
+            textView.setTextSize(16);
+            tresults.addView(textView,i);
+        }
+        RadioButton radioButton = new RadioButton(this);
+        radioButton.setText("追加");
+        radioButton.setTextSize(20);
+        dthemes.addView(radioButton, themes.size());//一番後ろに追加ボタンを追加
+        dthemes.invalidate();
+        dthemes.setOnCheckedChangeListener(this);
     }
 
     //テーマリストを取得
@@ -66,10 +87,13 @@ public class RecordActivity extends Activity{
         }catch(IOException e){
             e.printStackTrace();
         }
+
         loaddatas = new String[themes.size()][3];
+
         for(int i=0;i<themes.size();i++) {
             loaddatas[i] = themes.get(i).split(",");
         }
+
     }
 
     public void addThemes(){
@@ -77,8 +101,53 @@ public class RecordActivity extends Activity{
     }
 
     public static void removeDatas(int position){
-        try {
-            OutputStream out = MainActivity.context.openFileOutput("dueldata.txt", MainActivity.context.MODE_PRIVATE);
-        }catch (IOException e){}
+        MainActivity.context.deleteFile("themes"+position+".txt");
+    }
+
+
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        if(checkedId == themes.size()+1){
+            if (currentmenuidx != -1 && currentmenuidx != themes.size()+1) {
+                dthemes.removeViewAt(currentmenuidx);
+            }
+            currentmenuidx = checkedId;
+        }else {
+            if (currentmenuidx != -1 && currentmenuidx != themes.size()+1) {
+                dthemes.removeViewAt(currentmenuidx);
+            }
+            currentmenuidx = checkedId;
+            LinearLayout menu = new LinearLayout(this);
+            menu.setOrientation(LinearLayout.VERTICAL);
+            Button deletetheme = new Button(this);
+            deletetheme.setText("削除");
+            Button winbutton = new Button(this);
+            winbutton.setText("勝ち");
+            Button losebutton = new Button(this);
+            losebutton.setText("負け");
+            menu.addView(deletetheme);
+            menu.addView(winbutton);
+            menu.addView(losebutton);
+            dthemes.addView(menu, currentmenuidx);
+        }
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        findViews();
+        loadThemes();
+        themeSet();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
     }
 }
