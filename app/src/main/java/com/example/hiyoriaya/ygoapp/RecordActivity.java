@@ -2,10 +2,10 @@ package com.example.hiyoriaya.ygoapp;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.LinearLayout;
+
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -20,55 +20,60 @@ import java.util.List;
  * duelistデータの編集クラスも兼ねる
  * removeDatas・・引数の主キーを削除→詰める
  */
-public class RecordActivity extends Activity implements RadioGroup.OnCheckedChangeListener{
+public class RecordActivity extends Activity implements RadioGroup.OnCheckedChangeListener {
 
-    static int currentmenuidx;
     TextView dname;
+    TextView dprof;
     TextView duelresults;
     RadioGroup dthemes;
     List<String> themes;
+    List<String> profs;
     String[][] loaddatas; //loaddataで読み込んだtheme名,勝ち数,負け数が入ってる
-    LinearLayout tresults;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
+        findViews();
+        loadThemes();
+        loadprofs();
+        themeSet();
+        profSet();
     }
 
     public void findViews(){
-        currentmenuidx = -1;//初期値
         themes = new ArrayList<String>();
-        themes.add("スタンダード");
-        themes.add("融合");
-        themes.add("儀式");
-        themes.add("スタンダード");
-        themes.add("融合");
-        themes.add("儀式");
+        profs = new ArrayList<String>();
         dname=(TextView)findViewById(R.id.dname);
         dname.setText(MainActivity.keys.get(MainActivity.select));
+        dprof=(TextView)findViewById(R.id.dprof);
         duelresults = (TextView)findViewById(R.id.duelresults);
         duelresults.setText("0戦0勝0敗 勝率0%");
-        dthemes = (RadioGroup)findViewById(R.id.dthemes);
-        tresults = (LinearLayout)findViewById(R.id.tresults);
+        dthemes = (RadioGroup) findViewById(R.id.dthemes);
+    }
+
+    public void profSet(){
+        dprof.setText("【魂のカード】\n"+profs.get(2));
+        dprof.append("\n【自己紹介】\n"+profs.get(3));
     }
 
     public void themeSet(){
         for(int i=0;i<themes.size();i++){
+            String spannable ="";
+            for(int j= themes.get(i).length();j<10;j++){
+                spannable += ("　");
+            }
             RadioButton radioButton = new RadioButton(this);
             radioButton.setText(themes.get(i));
-            dthemes.addView(radioButton, i);
-            TextView textView = new TextView(this);
-            textView.setPadding(16,16,16,16);
-            textView.setText("―　　0勝　0敗");
-            textView.setTextSize(16);
-            tresults.addView(textView,i);
+            radioButton.append(spannable+"―　0勝　0敗");
+            radioButton.setTextSize(20);
+            dthemes.addView(radioButton,i);
         }
         RadioButton radioButton = new RadioButton(this);
         radioButton.setText("追加");
         radioButton.setTextSize(20);
         dthemes.addView(radioButton, themes.size());//一番後ろに追加ボタンを追加
-        dthemes.invalidate();
         dthemes.setOnCheckedChangeListener(this);
     }
 
@@ -96,8 +101,19 @@ public class RecordActivity extends Activity implements RadioGroup.OnCheckedChan
 
     }
 
-    public void addThemes(){
-
+    public void loadprofs(){
+        try{
+            InputStream in = MainActivity.context.openFileInput("profs"+MainActivity.select+".txt");
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(in,"UTF-8"));
+            String s;
+            while((s = reader.readLine())!= null){
+                themes.add(s + "\n");
+            }
+            reader.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     public static void removeDatas(int position){
@@ -105,49 +121,11 @@ public class RecordActivity extends Activity implements RadioGroup.OnCheckedChan
     }
 
 
-
+    //テーマリストチェック時の動作
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        if(checkedId == themes.size()+1){
-            if (currentmenuidx != -1 && currentmenuidx != themes.size()+1) {
-                dthemes.removeViewAt(currentmenuidx);
-            }
-            currentmenuidx = checkedId;
-        }else {
-            if (currentmenuidx != -1 && currentmenuidx != themes.size()+1) {
-                dthemes.removeViewAt(currentmenuidx);
-            }
-            currentmenuidx = checkedId;
-            LinearLayout menu = new LinearLayout(this);
-            menu.setOrientation(LinearLayout.VERTICAL);
-            Button deletetheme = new Button(this);
-            deletetheme.setText("削除");
-            Button winbutton = new Button(this);
-            winbutton.setText("勝ち");
-            Button losebutton = new Button(this);
-            losebutton.setText("負け");
-            menu.addView(deletetheme);
-            menu.addView(winbutton);
-            menu.addView(losebutton);
-            dthemes.addView(menu, currentmenuidx);
+        if(checkedId == themes.size()-1){
+
         }
-    }
-
-    @Override
-    public void onStart(){
-        super.onStart();
-        findViews();
-        loadThemes();
-        themeSet();
-    }
-
-    @Override
-    public void onPause(){
-        super.onPause();
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
     }
 }
