@@ -114,7 +114,7 @@ public class RecordActivity extends Activity implements AdapterView.OnItemClickL
     public void themeSet(){
         dtheme = (ListView)findViewById(R.id.dtheme);
         ListAdapter adapter = new ListAdapter(this,R.layout.row,themes);
-        //dtheme.setAdapter(adapter);
+        dtheme.setAdapter(adapter);
         dtheme.setOnItemClickListener(this);
     }
 

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by hiyorineko on 2016/02/09.
  */
-public class ListAdapter extends ArrayAdapter<String> implements View.OnClickListener{
+public class ListAdapter extends ArrayAdapter<String>{
 
         private LayoutInflater inflater = null;
 
@@ -36,8 +36,4 @@ public class ListAdapter extends ArrayAdapter<String> implements View.OnClickLis
             return convertView;
         }
 
-    @Override
-    public void onClick(View v) {
-
-    }
 }
