@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#969696">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#00000000" >
+
+        <Button
+            android:id="@+id/delbutton"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:background="#cc2828"
+            android:text="削除"
+            android:textColor="#ffffff"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:clickable="true" />
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:text="勝ち"
+            android:id="@+id/winbutton"
+            android:background="#ff0000"
+            android:textColor="#ffffff"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/losebutton"
+            android:layout_toStartOf="@+id/losebutton"
+            android:clickable="true" />
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:text="負け"
+            android:id="@+id/losebutton"
+            android:background="#72009b"
+            android:textColor="#ffffff"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:clickable="true" />
+    </RelativeLayout>
+
+</LinearLayout>
