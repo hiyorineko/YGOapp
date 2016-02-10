@@ -30,8 +30,8 @@ public class ListAdapter extends ArrayAdapter<String>{
             }
 
             ViewPager viewPager = (ViewPager)convertView.findViewById(R.id.viewpager);
-            MyPagerAdapter adapter = new MyPagerAdapter(getContext(),getItem(position));
-            viewPager.setAdapter(adapter);
+            //MyPagerAdapter adapter = new MyPagerAdapter(getContext(),getItem(position));
+            //viewPager.setAdapter(adapter);
 
             return convertView;
         }
