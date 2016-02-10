@@ -18,19 +18,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/duelresults"
         android:textSize="20sp"
-        android:layout_alignBaseline="@+id/dprof"
-        android:layout_alignBottom="@+id/dprof"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dname"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:padding="3dp"
-        android:id="@+id/dprof"></TextView>
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/dname" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -42,7 +32,8 @@
         android:layout_below="@+id/duelresults"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:padding="3dp"/>
+        android:padding="3dp"
+        android:textSize="16sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,7 +42,8 @@
         android:layout_below="@+id/textView9"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:padding="3dp"/>
+        android:padding="3dp"
+        android:textSize="16sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,7 +54,8 @@
         android:layout_below="@+id/dspirit"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:padding="3dp"/>
+        android:padding="3dp"
+        android:textSize="16sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -71,7 +64,8 @@
         android:layout_below="@+id/textView8"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:padding="3dp"/>
+        android:padding="3dp"
+        android:textSize="16sp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -83,15 +77,26 @@
         android:layout_below="@+id/dcomment"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:padding="3dp"/>
+        android:padding="3dp"
+        android:textSize="16sp" />
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dthemes"
         android:layout_below="@+id/textView7"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:padding="3dp"/>
+        android:padding="3dp"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/themeresult"
+        android:layout_alignTop="@+id/dthemes"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="16sp" />
 
 </RelativeLayout>

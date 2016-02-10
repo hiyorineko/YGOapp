@@ -44,8 +44,10 @@ public class RecordActivity extends Activity{
         profs = new ArrayList<String>();
     }
     public void setViews(){
-        String[] arrayresult = profs.get(1).split(",");
-        String[] arrayThemes = profs.get(2).split(",");
+        int[] arrayresult = new int[2];
+        String[] arrayThemes = profs.get(3).split(",");
+        String[] arrayThemeWins = profs.get(4).split(",");
+        String[] arrayThemeLoses = profs.get(5).split(",");
         TextView dname = (TextView)findViewById(R.id.dname);
         dname.setPaintFlags(dname.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         TextView dresult = (TextView)findViewById(R.id.duelresults);
@@ -53,17 +55,22 @@ public class RecordActivity extends Activity{
         dtheme.setPaintFlags(dtheme.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         TextView dspirit = (TextView)findViewById(R.id.dspirit);
         TextView dcomment = (TextView)findViewById(R.id.dcomment);
+        TextView themeresult = (TextView)findViewById(R.id.themeresult);
         dname.setText(profs.get(0));
-        dresult.setText(arrayresult[0] + "勝" + arrayresult[1] + "敗");
         for(int i=0;i<arrayThemes.length;i++){
             if(i==arrayThemes.length-1){
                 dtheme.append(arrayThemes[i]);
+                themeresult.append(arrayThemeWins[i]+"勝"+arrayThemeLoses[i]+"敗");
             }else {
                 dtheme.append(arrayThemes[i] + "\n");
+                themeresult.append(arrayThemeWins[i]+"勝"+arrayThemeLoses[i]+"敗\n");
             }
+            arrayresult[0] += Integer.parseInt(arrayThemeWins[i]);
+            arrayresult[1] += Integer.parseInt(arrayThemeLoses[i]);
         }
-        dspirit.setText(profs.get(3));
-        dcomment.setText(profs.get(4));
+        dresult.setText(String.valueOf(arrayresult[0]) + "勝" + String.valueOf(arrayresult[1]) + "敗");
+        dspirit.setText(profs.get(1));
+        dcomment.setText(profs.get(2));
     }
 
     public void readProfs(){
@@ -80,11 +87,12 @@ public class RecordActivity extends Activity{
             try {
                 OutputStream out = openFileOutput("profs" + MainActivity.select + ".txt", MODE_PRIVATE);
                 PrintWriter writer = new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
-                writer.append("たろう\n");//0
-                writer.append("1,2\n");//1
-                writer.append("A,B,C\n");//2
-                writer.append("ガトクロ\n");//3
-                writer.append("こんにちは\n");//4
+                writer.append("たろう\n");
+                writer.append("ガトクロ\n");
+                writer.append("こんにちは\n");
+                writer.append("A,B,C\n");
+                writer.append("10,10,10\n");
+                writer.append("2,2,2\n");
                 writer.close();
                 readProfs();
             }catch(FileNotFoundException e2){
@@ -93,14 +101,13 @@ public class RecordActivity extends Activity{
         }catch(IOException e5){}
     }
 
-    //public void padding(int position) {
-    //    for (int i = 0; i < themes.size(); i++) {
-    //        String spannable = "";
-    //        for (int j = themes.get(i).length(); j < 10; j++) {
-    //            spannable += ("　");
-    //        }
-    //    }
-    //}
+    public String padding(String tmp) {
+        String spannable ="";
+        for (int i = tmp.length(); i < 10; i++) {
+                spannable += ("　");
+            }
+        return spannable;
+    }
 
     public static void removeDatas(int position) {
         MainActivity.context.deleteFile("profs" + position + ".txt");

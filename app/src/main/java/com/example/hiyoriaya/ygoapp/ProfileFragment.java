@@ -1,14 +1,17 @@
 package com.example.hiyoriaya.ygoapp;
 
 import android.content.Context;
+import android.nfc.NfcAdapter;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -37,6 +40,7 @@ public class ProfileFragment extends Fragment implements View.OnKeyListener{
     EditText favorites;
     EditText appeal;
     InputMethodManager inputMethodManager;
+    ImageView share;
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState){
@@ -68,6 +72,8 @@ public class ProfileFragment extends Fragment implements View.OnKeyListener{
         appeal = (EditText)v.findViewById(R.id.appeal);
         appeal.setOnKeyListener(this);
         inputMethodManager =  (InputMethodManager)MainActivity.context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        share = (ImageView)v.findViewById(R.id.share);
+        //share.setOnTouchListener(this);
     }
 
     public void loadProfile(){
@@ -105,7 +111,7 @@ public class ProfileFragment extends Fragment implements View.OnKeyListener{
         try {
             OutputStream out;
             MainActivity.context.deleteFile("profile.txt");
-            out = MainActivity.context.openFileOutput("profile.txt", MainActivity.context.MODE_PRIVATE);
+            out = MainActivity.context.openFileOutput("profile.txt", MainActivity.context.MODE_WORLD_READABLE);
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
             writer.append(username.getText() + "\n");
             writer.append(userthemes.getText() + "\n");
@@ -123,8 +129,21 @@ public class ProfileFragment extends Fragment implements View.OnKeyListener{
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         if((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode==KeyEvent.KEYCODE_ENTER)){
             inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+            saveProfile();
             return true;
         }
         return false;
     }
+
+    //static NfcAdapter mnfcAdapter;
+    //@Override
+    //public boolean onTouch(View v, MotionEvent event) {
+    //    mnfcAdapter = NfcAdapter.getDefaultAdapter(getActivity());
+    //    if(mnfcAdapter==null){
+    //    } else{
+    //        mnfcAdapter.setOnNdefPushCompleteCallback(getActivity(),getActivity());
+    //    }
+    //}
+    //   return true;
+    //}
 }
